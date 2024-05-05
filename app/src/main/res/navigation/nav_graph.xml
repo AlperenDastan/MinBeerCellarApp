@@ -8,9 +8,8 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.minbeercellarapp.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:label="First Fragment"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -18,11 +17,18 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.minbeercellarapp.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:label="Second Fragment"
         tools:layout="@layout/fragment_second">
-
+        <action
+            android:id="@+id/action_SecondFragment_to_AddBeerFragment"
+            app:destination="@id/AddBeerFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/AddBeerFragment"
+        android:name="com.example.minbeercellarapp.AddBeerFragment"
+        android:label="Add Beer"
+        tools:layout="@layout/fragment_add_beer" />
 </navigation>
