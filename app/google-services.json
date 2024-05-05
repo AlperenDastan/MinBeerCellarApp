@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "558827552268",
+    "project_id": "mybeercellarapp",
+    "storage_bucket": "mybeercellarapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558827552268:android:c90a7b3fc3a5da5fce3829",
+        "android_client_info": {
+          "package_name": "com.example.minbeercellarapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0JIHc_xlrLX6dKl4RgXhV2yAlKr27D5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558827552268:android:e7ceafd7651463cace3829",
+        "android_client_info": {
+          "package_name": "com.example.mybeercellarapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0JIHc_xlrLX6dKl4RgXhV2yAlKr27D5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
