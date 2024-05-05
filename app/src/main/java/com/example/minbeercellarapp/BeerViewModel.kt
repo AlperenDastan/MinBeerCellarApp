@@ -9,22 +9,11 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
     val beers = MutableLiveData<List<Beer>>()
     val error = MutableLiveData<String>()
 
-    fun getAllBeers() {
+    fun getUserBeers(userEmail: String, orderBy: String = "") {
         viewModelScope.launch {
             try {
-                beers.value = repository.getAllBeers()
-            } catch (e: Exception) {
-                error.value = e.message
-            }
-        }
-    }
-
-
-    fun getUserBeers(userId: String, orderBy: String = "") {
-        viewModelScope.launch {
-            try {
-                val results = repository.getUserBeers(userId, orderBy)
-                beers.postValue(results)
+                val userBeers = repository.getUserBeers(userEmail, orderBy) // Make sure the repository has this method
+                beers.postValue(userBeers)
             } catch (e: Exception) {
                 error.postValue(e.message)
             }

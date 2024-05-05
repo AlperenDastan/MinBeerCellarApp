@@ -26,10 +26,9 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       // binding.viewBeersButton.setOnClickListener {
-            // Navigate to Beer List Screen
-         //   findNavController().navigate(R.id.action_SecondFragment_to_BeerListScreenFragment)
-        //}
+        binding.viewMyBeersButton.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_MyBeersFragment)
+        }
 
         //binding.viewUserBeersButton.setOnClickListener {
             // Navigate to Search Beers Screen
