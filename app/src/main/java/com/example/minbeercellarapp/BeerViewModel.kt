@@ -6,13 +6,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
-    val beers = MutableLiveData<List<Beer>>()
+    val beers = MutableLiveData<List<Beer>?>()
     val error = MutableLiveData<String>()
 
     fun getUserBeers(userEmail: String, orderBy: String = "") {
         viewModelScope.launch {
             try {
-                val userBeers = repository.getUserBeers(userEmail, orderBy) // Make sure the repository has this method
+                val userBeers = repository.getUserBeers(userEmail, orderBy)
                 beers.postValue(userBeers)
             } catch (e: Exception) {
                 error.postValue(e.message)
@@ -30,6 +30,25 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
                 error.value = e.message
             }
         }
+    }
+
+    fun sortBeers(criteria: String) {
+        val sortedList = when (criteria) {
+            "Brewery" -> beers.value?.sortedBy { it.brewery }
+            "Name" -> beers.value?.sortedBy { it.name }
+            "ABV" -> beers.value?.sortedBy { it.abv }
+            else -> beers.value
+        }
+        beers.postValue(sortedList)
+    }
+
+    fun filterBeers(filter: String) {
+        val filteredList = beers.value?.filter {
+            it.brewery.contains(filter, ignoreCase = true) ||
+                    it.name.contains(filter, ignoreCase = true) ||
+                    it.style.contains(filter, ignoreCase = true)
+        }
+        beers.postValue(filteredList)
     }
 
     fun updateBeer(beer: Beer) {
