@@ -1,6 +1,8 @@
 package com.example.minbeercellarapp
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
 data class Beer(
     @SerializedName("id")
     val id: Int,
@@ -20,4 +22,4 @@ data class Beer(
     val pictureUrl: String?,
     @SerializedName("howMany")
     val howMany: Int
-)
+) : Serializable

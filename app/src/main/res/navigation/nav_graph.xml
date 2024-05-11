@@ -25,7 +25,7 @@
             app:destination="@id/AddBeerFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_MyBeersFragment"
-            app:destination="@id/MyBeersFragment" />
+            app:destination="@id/myBeersFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
@@ -38,8 +38,25 @@
         tools:layout="@layout/fragment_add_beer" />
 
     <fragment
-        android:id="@+id/MyBeersFragment"
+        android:id="@+id/myBeersFragment"
         android:name="com.example.minbeercellarapp.MyBeersFragment"
-        android:label="View My Beers"
-        tools:layout="@layout/fragment_my_beers" />
+        android:label="My Beers Fragment"
+        tools:layout="@layout/fragment_my_beers">
+        <action
+            android:id="@+id/action_MyBeersFragment_to_UpdateBeerFragment"
+            app:destination="@id/updateBeerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/updateBeerFragment"
+        android:name="com.example.minbeercellarapp.UpdateBeerFragment"
+        android:label="Update Beer"
+        tools:layout="@layout/fragment_update_beer">
+        <argument
+            android:name="beer"
+            app:argType="com.example.minbeercellarapp.Beer" />
+        <action
+            android:id="@+id/action_UpdateBeerFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
 </navigation>

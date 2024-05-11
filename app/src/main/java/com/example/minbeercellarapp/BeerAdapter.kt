@@ -5,13 +5,17 @@
     import android.view.ViewGroup
     import android.widget.Button
     import android.widget.TextView
+    import androidx.navigation.findNavController
     import androidx.recyclerview.widget.DiffUtil
     import androidx.recyclerview.widget.ListAdapter
     import androidx.recyclerview.widget.RecyclerView
 
-    class BeerAdapter(private val onDeleteClick: (Int) -> Unit) : ListAdapter<Beer, BeerAdapter.BeerViewHolder>(BeerDiffCallback()) {
+    class BeerAdapter(
+        private val onDeleteClick: (Int) -> Unit,
+        private val onEditClick: (Beer) -> Unit  // Adding an edit callback
+    ) : ListAdapter<Beer, BeerAdapter.BeerViewHolder>(BeerDiffCallback()) {
 
-        class BeerViewHolder(itemView: View, private val onDeleteClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        inner class BeerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val idTextView: TextView = itemView.findViewById(R.id.idTextView)
             private val userTextView: TextView = itemView.findViewById(R.id.userTextView)
             private val breweryTextView: TextView = itemView.findViewById(R.id.breweryTextView)
@@ -22,23 +26,31 @@
             private val pictureUrlTextView: TextView = itemView.findViewById(R.id.pictureUrlTextView)
             private val howManyTextView: TextView = itemView.findViewById(R.id.howManyTextView)
             private val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
+            private val editButton: Button = itemView.findViewById(R.id.editButton)
 
             init {
                 deleteButton.setOnClickListener {
-                    onDeleteClick(adapterPosition)
+                    val beer = getItem(adapterPosition)
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        onDeleteClick(beer.id)  // Using the beer's actual ID for deletion
+                    }
+                }
+                editButton.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onEditClick(getItem(position))
+                    }
                 }
             }
+
             fun bind(beer: Beer) {
                 idTextView.text = "ID: ${beer.id}"
-                deleteButton.setOnClickListener {
-                    onDeleteClick(beer.id)
-                }
                 userTextView.text = "User: ${beer.user}"
                 breweryTextView.text = "Brewery: ${beer.brewery}"
                 nameTextView.text = "Name: ${beer.name}"
                 styleTextView.text = "Style: ${beer.style}"
                 abvTextView.text = "ABV: ${beer.abv}"
-                volumeTextView.text = "Volume: ${beer.volume?.toString() ?: "N/A"}"
+                volumeTextView.text = beer.volume?.toString() ?: "N/A"
                 pictureUrlTextView.text = beer.pictureUrl ?: "No Image"
                 howManyTextView.text = "Quantity: ${beer.howMany}"
             }
@@ -46,7 +58,7 @@
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_beer, parent, false)
-            return BeerViewHolder(view, onDeleteClick)
+            return BeerViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: BeerViewHolder, position: Int) {

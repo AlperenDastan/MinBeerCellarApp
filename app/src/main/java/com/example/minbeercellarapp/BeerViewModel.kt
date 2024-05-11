@@ -52,14 +52,31 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
         beers.postValue(filteredList)
     }
 
-
-    fun deleteBeer(id: Int) {
+    fun updateBeer(beer: Beer) {
         viewModelScope.launch {
-            val response = repository.deleteBeer(id)
-            if (response.isSuccessful) {
-                beers.value = beers.value?.filter { it.id != id }
-            } else {
-                error.postValue("Failed to delete beer: ${response.errorBody()?.string()}")
+            try {
+                val updatedBeer = repository.updateBeer(beer)
+                beers.value = beers.value?.map {
+                    if (it.id == beer.id) updatedBeer else it
+                }
+            } catch (e: Exception) {
+                error.postValue(e.message)
+            }
+        }
+    }
+    fun deleteBeer(beerId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = repository.deleteBeer(beerId)
+                if (response.isSuccessful) {
+                    // Handle successful deletion, e.g., refresh the list
+                    beers.value = beers.value?.filterNot { it.id == beerId }
+                } else {
+                    // Handle failure
+                    error.postValue("Failed to delete beer")
+                }
+            } catch (e: Exception) {
+                error.postValue(e.message)
             }
         }
     }

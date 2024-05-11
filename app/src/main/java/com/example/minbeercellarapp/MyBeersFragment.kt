@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.minbeercellarapp.databinding.FragmentMyBeersBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -31,9 +32,17 @@ class MyBeersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = BeerAdapter { beerId ->
-            viewModel.deleteBeer(beerId)
-        }
+
+        val adapter = BeerAdapter(
+            onDeleteClick = { beerId ->
+                viewModel.deleteBeer(beerId)
+                Toast.makeText(context, "Beer deleted", Toast.LENGTH_SHORT).show()
+            },
+            onEditClick = { beer ->
+                val action = MyBeersFragmentDirections.actionMyBeersFragmentToUpdateBeerFragment(beer)
+                findNavController().navigate(action)
+            }
+        )
         binding.beersRecyclerView.adapter = adapter
         binding.beersRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -43,11 +52,17 @@ class MyBeersFragment : Fragment() {
         )
 
         binding.sortingSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (view == null) {
+                    // Optionally handle null view if necessary
+                    return
+                }
                 viewModel.sortBeers(sortingOptions[position])
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Optionally handle the case where nothing is selected
+            }
         }
 
         binding.searchButton.setOnClickListener {
