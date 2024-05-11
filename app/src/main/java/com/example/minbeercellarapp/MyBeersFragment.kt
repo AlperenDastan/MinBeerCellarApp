@@ -31,9 +31,11 @@ class MyBeersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = BeerAdapter()
-        binding.beersRecyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = BeerAdapter { beerId ->
+            viewModel.deleteBeer(beerId)
+        }
         binding.beersRecyclerView.adapter = adapter
+        binding.beersRecyclerView.layoutManager = LinearLayoutManager(context)
 
         val sortingOptions = arrayOf("Brewery", "Name", "ABV")
         binding.sortingSpinner.adapter = ArrayAdapter(

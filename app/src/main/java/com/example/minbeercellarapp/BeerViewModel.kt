@@ -1,5 +1,6 @@
 package com.example.minbeercellarapp
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -51,26 +52,16 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
         beers.postValue(filteredList)
     }
 
-    fun updateBeer(beer: Beer) {
+
+    fun deleteBeer(id: Int) {
         viewModelScope.launch {
-            try {
-                val updatedBeer = repository.updateBeer(beer)
-                // Handle the updated beer, e.g., update the list in LiveData
-            } catch (e: Exception) {
-                error.value = e.message
+            val response = repository.deleteBeer(id)
+            if (response.isSuccessful) {
+                beers.value = beers.value?.filter { it.id != id }
+            } else {
+                error.postValue("Failed to delete beer: ${response.errorBody()?.string()}")
             }
         }
     }
 
-    fun deleteBeer(id: Int) {
-        viewModelScope.launch {
-            try {
-                repository.deleteBeer(id)
-                // Handle the deletion, e.g., remove the beer from the list in LiveData
-            } catch (e: Exception) {
-                error.value = e.message
-                // Define methods for PUT and DELETE operations here when you have them in your API.
-            }
-        }
-    }
 }
