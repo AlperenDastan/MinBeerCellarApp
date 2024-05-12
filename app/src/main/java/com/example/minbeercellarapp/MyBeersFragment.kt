@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.minbeercellarapp.databinding.FragmentMyBeersBinding
 import com.google.firebase.auth.FirebaseAuth
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MyBeersFragment : Fragment() {
     private var _binding: FragmentMyBeersBinding? = null
@@ -54,7 +55,6 @@ class MyBeersFragment : Fragment() {
         binding.sortingSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (view == null) {
-                    // Optionally handle null view if necessary
                     return
                 }
                 viewModel.sortBeers(sortingOptions[position])
@@ -74,14 +74,20 @@ class MyBeersFragment : Fragment() {
             }
         }
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getUserBeers(FirebaseAuth.getInstance().currentUser?.email ?: "")
+        }
+
         viewModel.beers.observe(viewLifecycleOwner) { beers ->
             adapter.submitList(beers)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             if (error.isNotEmpty()) {
                 Toast.makeText(context, "Error fetching beers: $error", Toast.LENGTH_LONG).show()
             }
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""

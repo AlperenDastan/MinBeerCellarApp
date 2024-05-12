@@ -16,7 +16,8 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
                 val userBeers = repository.getUserBeers(userEmail, orderBy)
                 beers.postValue(userBeers)
             } catch (e: Exception) {
-                error.postValue(e.message)
+                error.postValue("Failed to fetch beers: ${e.message}")
+                Log.e("BeerViewModel", "Error fetching beers", e)
             }
         }
     }
@@ -25,10 +26,10 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val newBeer = repository.addBeer(beer)
-                // Assuming you want to update the live data with the new list including the added beer
                 beers.value = beers.value?.plus(newBeer)
             } catch (e: Exception) {
-                error.value = e.message
+                error.value = "Failed to add beer: ${e.message}"
+                Log.e("BeerViewModel", "Error adding beer", e)
             }
         }
     }
@@ -60,7 +61,8 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
                     if (it.id == beer.id) updatedBeer else it
                 }
             } catch (e: Exception) {
-                error.postValue(e.message)
+                error.postValue("Failed to update beer: ${e.message}")
+                Log.e("BeerViewModel", "Error updating beer", e)
             }
         }
     }
@@ -69,14 +71,14 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
             try {
                 val response = repository.deleteBeer(beerId)
                 if (response.isSuccessful) {
-                    // Handle successful deletion, e.g., refresh the list
                     beers.value = beers.value?.filterNot { it.id == beerId }
                 } else {
-                    // Handle failure
                     error.postValue("Failed to delete beer")
+                    Log.e("BeerViewModel", "Error deleting beer: HTTP ${response.code()}")
                 }
             } catch (e: Exception) {
-                error.postValue(e.message)
+                error.postValue("Exception during deletion: ${e.message}")
+                Log.e("BeerViewModel", "Error deleting beer", e)
             }
         }
     }
