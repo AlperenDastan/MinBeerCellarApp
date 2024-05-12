@@ -13,7 +13,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/userTextView"
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/idTextView"
+        app:layout_constraintTop_toBottomOf="@id/idTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/breweryTextView"
@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/userTextView"
+        app:layout_constraintTop_toBottomOf="@id/userTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -41,9 +41,9 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/breweryTextView"
+        app:layout_constraintTop_toBottomOf="@id/breweryTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/styleTextView"
@@ -51,9 +51,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/abvTextView"
@@ -61,9 +61,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView"
+        app:layout_constraintTop_toBottomOf="@id/styleTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/volumeTextView"
@@ -71,9 +71,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/abvTextView"
+        app:layout_constraintTop_toBottomOf="@id/abvTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/pictureUrlTextView"
@@ -81,9 +81,9 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/volumeTextView"
+        app:layout_constraintTop_toBottomOf="@id/volumeTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/howManyTextView"
@@ -91,23 +91,24 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/pictureUrlTextView"
+        app:layout_constraintTop_toBottomOf="@id/pictureUrlTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
-        app:layout_constraintStart_toStartOf="@+id/deleteButton"
-        app:layout_constraintTop_toBottomOf="@+id/howManyTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/howManyTextView"
         android:layout_marginTop="8dp" />
+
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/editButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
