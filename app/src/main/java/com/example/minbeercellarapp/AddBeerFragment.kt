@@ -38,31 +38,92 @@ class AddBeerFragment : Fragment() {
         val style = binding.editTextStyle.text.toString()
         val abv = binding.editTextAbv.text.toString().toDoubleOrNull()
         val volume = binding.editTextVolume.text.toString().toDoubleOrNull()
-        val howMany = binding.editTextHowMany.text.toString().toIntOrNull() ?: 0
+        val howMany = binding.editTextHowMany.text.toString().toIntOrNull()
 
-        if (brewery.isBlank() || name.isBlank() || style.isBlank() || abv == null) {
-            Toast.makeText(context, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
-        } else {
+        clearErrors()
+        if (validateInput(brewery, name, style, abv, volume, howMany)) {
             val newBeer = Beer(
-                id = 0, // Assuming ID is auto-generated or not needed for new entries
+                id = 0,
                 user = FirebaseAuth.getInstance().currentUser?.email ?: "",
                 brewery = brewery,
                 name = name,
                 style = style,
-                abv = abv,
+                abv = abv!!,
                 volume = volume,
-                pictureUrl = null, // Assuming no picture URL is entered
-                howMany = howMany
+                pictureUrl = null,
+                howMany = howMany ?: 0
             )
             viewModel.addBeer(newBeer)
             viewModel.beers.observe(viewLifecycleOwner) { beers ->
                 Toast.makeText(context, "Beer added successfully!", Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack() // Navigate back after successful addition
+                findNavController().popBackStack()
             }
             viewModel.error.observe(viewLifecycleOwner) { error ->
                 Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun validateInput(brewery: String, name: String, style: String, abv: Double?, volume: Double?, howMany: Int?): Boolean {
+        var isValid = true
+        if (brewery.isBlank()) {
+            binding.textViewErrorBrewery.text = "Brewery is required"
+            binding.textViewErrorBrewery.visibility = View.VISIBLE
+            isValid = false
+        } else {
+            binding.textViewErrorBrewery.visibility = View.GONE
+        }
+
+        if (name.isBlank()) {
+            binding.textViewErrorName.text = "Name is required"
+            binding.textViewErrorName.visibility = View.VISIBLE
+            isValid = false
+        } else {
+            binding.textViewErrorName.visibility = View.GONE
+        }
+
+        if (style.isBlank()) {
+            binding.textViewErrorStyle.text = "Style is required"
+            binding.textViewErrorStyle.visibility = View.VISIBLE
+            isValid = false
+        } else {
+            binding.textViewErrorStyle.visibility = View.GONE
+        }
+
+        if (abv == null) {
+            binding.textViewErrorAbv.text = "ABV must be a number"
+            binding.textViewErrorAbv.visibility = View.VISIBLE
+            isValid = false
+        } else {
+            binding.textViewErrorAbv.visibility = View.GONE
+        }
+
+        if (volume == null) {
+            binding.textViewErrorVolume.text = "Volume must be a number"
+            binding.textViewErrorVolume.visibility = View.VISIBLE
+            isValid = false
+        } else {
+            binding.textViewErrorVolume.visibility = View.GONE
+        }
+
+        if (howMany == null) {
+            binding.textViewErrorHowMany.text = "Quantity must be a number"
+            binding.textViewErrorHowMany.visibility = View.VISIBLE
+            isValid = false
+        } else {
+            binding.textViewErrorHowMany.visibility = View.GONE
+        }
+
+        return isValid
+    }
+
+    private fun clearErrors() {
+        binding.textViewErrorBrewery.visibility = View.GONE
+        binding.textViewErrorName.visibility = View.GONE
+        binding.textViewErrorStyle.visibility = View.GONE
+        binding.textViewErrorAbv.visibility = View.GONE
+        binding.textViewErrorVolume.visibility = View.GONE
+        binding.textViewErrorHowMany.visibility = View.GONE
     }
 
     override fun onDestroyView() {

@@ -17,8 +17,7 @@ class FirstFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,37 +35,76 @@ class FirstFragment : Fragment() {
     }
 
     private fun loginUser() {
-        val email = binding.emailEditText.text.toString()
-        val password = binding.passwordEditText.text.toString()
-        if (email.isBlank() || password.isBlank()) {
-            showMessage("Fields cannot be empty")
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+        var hasError = false
+
+        if (email.isBlank()) {
+            binding.textViewErrorEmail.text = "Email cannot be empty"
+            binding.textViewErrorEmail.visibility = View.VISIBLE
+            hasError = true
         } else {
+            binding.textViewErrorEmail.visibility = View.GONE
+        }
+
+        if (password.isBlank()) {
+            binding.textViewErrorPassword.text = "Password cannot be empty"
+            binding.textViewErrorPassword.visibility = View.VISIBLE
+            hasError = true
+        } else {
+            binding.textViewErrorPassword.visibility = View.GONE
+        }
+
+        if (!hasError) {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showMessage("Login successful")
                     navigateToMain()
                 } else {
-                    showMessage("Login failed: ${task.exception?.message}")
+                    binding.textViewErrorEmail.text = "Login failed: Incorrect email or password"
+                    binding.textViewErrorEmail.visibility = View.VISIBLE
+                    binding.textViewErrorPassword.visibility = View.GONE
                 }
             }
         }
     }
 
     private fun registerUser() {
-        val email = binding.emailEditText.text.toString()
-        val password = binding.passwordEditText.text.toString()
-        if (email.isBlank() || password.isBlank()) {
-            showMessage("Fields cannot be empty")
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+        var hasError = false
+
+        if (email.isBlank()) {
+            binding.textViewErrorEmail.text = "Email cannot be empty"
+            binding.textViewErrorEmail.visibility = View.VISIBLE
+            hasError = true
         } else {
+            binding.textViewErrorEmail.visibility = View.GONE
+        }
+
+        if (password.isBlank()) {
+            binding.textViewErrorPassword.text = "Password cannot be empty"
+            binding.textViewErrorPassword.visibility = View.VISIBLE
+            hasError = true
+        } else {
+            binding.textViewErrorPassword.visibility = View.GONE
+        }
+
+        if (!hasError) {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     showMessage("Registration successful")
                     navigateToMain()
                 } else {
-                    showMessage("Registration failed: ${task.exception?.message}")
+                    binding.textViewErrorEmail.text = "Registration failed: ${task.exception?.message}"
+                    binding.textViewErrorEmail.visibility = View.VISIBLE
                 }
             }
         }
+    }
+
+    private fun clearErrors() {
+        binding.textViewErrorEmail.visibility = View.GONE
+        binding.textViewErrorPassword.visibility = View.GONE
     }
 
     private fun navigateToMain() {

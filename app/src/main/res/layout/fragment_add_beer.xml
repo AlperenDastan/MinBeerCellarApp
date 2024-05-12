@@ -6,86 +6,170 @@
     android:layout_height="match_parent"
     tools:context=".AddBeerFragment">
 
+    <!-- Brewery Input Field -->
     <EditText
         android:id="@+id/editTextBrewery"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Brewery"
+        android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+    <!-- Brewery Error Message -->
+    <TextView
+        android:id="@+id/textViewErrorBrewery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/editTextBrewery"
+        app:layout_constraintStart_toStartOf="@id/editTextBrewery"
+        app:layout_constraintEnd_toEndOf="@id/editTextBrewery"/>
+
+    <!-- Name Input Field -->
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Name"
-        app:layout_constraintTop_toBottomOf="@id/editTextBrewery"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/textViewErrorBrewery"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+    <!-- Name Error Message -->
+    <TextView
+        android:id="@+id/textViewErrorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/editTextName"
+        app:layout_constraintStart_toStartOf="@id/editTextName"
+        app:layout_constraintEnd_toEndOf="@id/editTextName"/>
+
+    <!-- Style Input Field -->
     <EditText
         android:id="@+id/editTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Style"
-        app:layout_constraintTop_toBottomOf="@id/editTextName"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/textViewErrorName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+    <!-- Style Error Message -->
+    <TextView
+        android:id="@+id/textViewErrorStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/editTextStyle"
+        app:layout_constraintStart_toStartOf="@id/editTextStyle"
+        app:layout_constraintEnd_toEndOf="@id/editTextStyle"/>
+
+    <!-- ABV Input Field -->
     <EditText
         android:id="@+id/editTextAbv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="ABV"
-        app:layout_constraintTop_toBottomOf="@id/editTextStyle"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/textViewErrorStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+    <!-- ABV Error Message -->
+    <TextView
+        android:id="@+id/textViewErrorAbv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/editTextAbv"
+        app:layout_constraintStart_toStartOf="@id/editTextAbv"
+        app:layout_constraintEnd_toEndOf="@id/editTextAbv"/>
+
+    <!-- Volume Input Field -->
     <EditText
         android:id="@+id/editTextVolume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Volume"
-        app:layout_constraintTop_toBottomOf="@id/editTextAbv"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/textViewErrorAbv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+    <!-- Volume Error Message -->
+    <TextView
+        android:id="@+id/textViewErrorVolume"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/editTextVolume"
+        app:layout_constraintStart_toStartOf="@id/editTextVolume"
+        app:layout_constraintEnd_toEndOf="@id/editTextVolume"/>
+
+    <!-- HowMany Input Field -->
     <EditText
         android:id="@+id/editTextHowMany"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Quantity"
-        app:layout_constraintTop_toBottomOf="@id/editTextVolume"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/textViewErrorVolume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+    <!-- HowMany Error Message -->
+    <TextView
+        android:id="@+id/textViewErrorHowMany"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/editTextHowMany"
+        app:layout_constraintStart_toStartOf="@id/editTextHowMany"
+        app:layout_constraintEnd_toEndOf="@id/editTextHowMany"/>
+
+    <!-- Add Beer Button -->
     <Button
         android:id="@+id/buttonAddBeer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Beer"
-        app:layout_constraintTop_toBottomOf="@id/editTextHowMany"
+        app:layout_constraintTop_toBottomOf="@id/textViewErrorHowMany"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
